@@ -25,7 +25,7 @@
 #define SEM_SPOOL_SIGNAL_NAME "/sem-spool-signal"
 
 // Buffer data structures
-#define MAX_BUFFERS 10
+#define MAX_BUFFERS 500
 char buf [MAX_BUFFERS] [100];
 int buffer_index;
 int buffer_print_index;
@@ -55,16 +55,7 @@ void *spooler (void *arg);
 // verify-1-HelloWorld
 // 3DD27BEB687E2C901480DE72728858A4
 
-const char* synthBlock(int j) {
 
-  char str[4];
-  char dest[15] = "10.1.1.";
-  sprintf(str, "%d", j);
-  strcat(dest, str);
-
-  char *name = dest;
-  return name;
-}
 char *str2md5(const char *str, int length) {
     int n;
     MD5_CTX c;
@@ -101,8 +92,9 @@ int main (int argc, char **argv)
     buffer_index = buffer_print_index = 0;
     
      for (int i =1; i<253; i++){
-     printf("%s", synthBlock(i));
-     printf("%s", "\n");
+     // printf("%s", synthBlock(i));
+     sprintf (buf [i], "verify-1-HelloWorld %d\n", i);
+     printf("%s", buf [i]);
      }
 
     //  mutual exclusion semaphore, mutex_sem with an initial value 1.
@@ -203,7 +195,7 @@ void *producer (void *arg)
         }
     
 	// Produce a string
-        sprintf (buf [j], "Thread %d: %d\n", my_id, ++count);
+  //      sprintf (buf [j], "Thread %d: %d\n", my_id, ++count);
 	// Tell spooler that there is a string to print: V (spool_signal_sem);
         if (sem_post (spool_signal_sem) == -1) {
 	    perror ("sem_post: spool_signal_sem"); exit (1);
