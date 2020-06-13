@@ -94,7 +94,7 @@ int main (int argc, char **argv)
      for (int i =1; i<253; i++){
      // printf("%s", synthBlock(i));
      sprintf (buf [i], "verify-1-HelloWorld %d\n", i);
-     printf("%s", buf [i]);
+     printf("%s", "\n");
      }
 
     //  mutual exclusion semaphore, mutex_sem with an initial value 1.
@@ -195,7 +195,7 @@ void *producer (void *arg)
         }
     
 	// Produce a string
-  //      sprintf (buf [j], "Thread %d: %d\n", my_id, ++count);
+       // sprintf (buf [j], "Thread %d: %d\n", my_id, ++count);
 	// Tell spooler that there is a string to print: V (spool_signal_sem);
         if (sem_post (spool_signal_sem) == -1) {
 	    perror ("sem_post: spool_signal_sem"); exit (1);
