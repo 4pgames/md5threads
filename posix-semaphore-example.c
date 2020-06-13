@@ -206,19 +206,20 @@ void *spooler (void *arg)
 
     while (1) {  // forever
     
-       int length = 1024;
-       char input[length+1];
-       char* s3 = "verify-1-HelloWorld";
-       char *ptr = str2md5(s3,19);
-       printf("%s\n", ptr);
-       free(ptr);
+
     
     
         // Is there a string to print? P (spool_signal_sem);
         if (sem_wait (spool_signal_sem) == -1) {
 	    perror ("sem_wait: spool_signal_sem"); exit (1);
         }
-    
+        // run MD5 hash
+       int length = 1024;
+       char* s3 = buf [buffer_print_index];
+       // char* s3 = "verify-1-HelloWorld";
+       char *ptr = str2md5(s3,19);
+       printf("%s\n", ptr);
+       free(ptr);
         printf ("%s", buf [buffer_print_index]);
 
         /* Since there is only one thread (spooler) using the 
