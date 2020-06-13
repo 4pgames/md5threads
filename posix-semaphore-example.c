@@ -217,7 +217,7 @@ void *spooler (void *arg)
        int length = 1024;
        char* s3 = buf [buffer_print_index];
        // char* s3 = "verify-1-HelloWorld";
-       char *ptr = str2md5(s3,19);
+       char *ptr = str2md5(s3,100); //  shifted to str len 100 to match buffer length
        printf("%s\n", ptr);
        free(ptr);
         printf ("%s", buf [buffer_print_index]);
